@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import {
   View, Text, Dimensions, StyleSheet
 } from 'react-native';
 import { Camera, Permissions } from 'expo';
+
+import Toolbar from './Toolbar';
 
 const { width: winWidth, height: winHeight } = Dimensions.get('window');
 
@@ -35,13 +37,26 @@ export default class VedoCamera extends Component {
         </View>
       );
     }
-    return <Camera style={styles.preview} />;
+    return (
+      <Fragment>
+        <View>
+          <Camera style={styles.preview} />
+        </View>
+
+        <Toolbar />
+      </Fragment>
+    );
   }
 }
 
 const styles = StyleSheet.create({
   preview: {
     height: winHeight,
-    width: winWidth
+    width: winWidth,
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    right: 0,
+    bottom: 0
   }
 });
