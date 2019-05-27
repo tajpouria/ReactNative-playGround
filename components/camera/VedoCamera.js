@@ -5,6 +5,7 @@ import {
 import { Camera, Permissions } from 'expo';
 
 import Toolbar from './Toolbar';
+import Gallery from './Gallery';
 
 const { width: winWidth, height: winHeight } = Dimensions.get('window');
 
@@ -20,6 +21,7 @@ export default class VedoCamera extends Component {
     super(props);
     this.state = {
       capturing: false,
+      recording: false,
       hasCameraAndAudioPermission: null,
       captures: [],
       flashMode: on,
@@ -47,26 +49,34 @@ export default class VedoCamera extends Component {
     this.setState({ cameraType });
   };
 
-  handleCaptureIn = () => this.setState({ capturing: true });
+  handleCaptureIn = () => this.setState({ capturing: true, recording: true });
 
   handleCaptureOut = () => {
     const { captures } = this.state;
+    this.setState({ recording: false });
     if (captures) this.camera.stopRecording();
   };
 
   handleShortCapture = async () => {
+    const { captures } = this.state;
     const photoData = await this.camera.takePictureAsync();
-    this.setState({ capturing: false, captures: [photoData, ...this.state.captures] });
+    this.setState({ capturing: false, captures: [photoData, ...captures] });
   };
 
   handleLongCapture = async () => {
+    const { captures } = this.state;
     const videoData = await this.camera.recordAsync();
-    this.setState({ capturing: false, captures: [videoData, ...this.state.captures] });
+    this.setState({ capturing: false, recording: false, captures: [videoData, ...captures] });
   };
 
   render() {
     const {
-      hasCameraAndAudioPermission, flashMode, cameraType, capturing
+      hasCameraAndAudioPermission,
+      recording,
+      flashMode,
+      cameraType,
+      capturing,
+      captures
     } = this.state;
 
     if (hasCameraAndAudioPermission === null) return <View />;
@@ -80,9 +90,16 @@ export default class VedoCamera extends Component {
     return (
       <Fragment>
         <View>
-          <Camera type={cameraType} flashMode={flashMode} style={styles.preview} />
+          <Camera
+            type={cameraType}
+            flashMode={flashMode}
+            style={styles.preview}
+            ref={camera => (this.camera = camera)}
+          />
         </View>
+        {captures.length > 0 && <Gallery captures={captures} />}
         <Toolbar
+          recording={recording}
           capturing={capturing}
           flashMode={flashMode}
           cameraType={cameraType}

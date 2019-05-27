@@ -12,9 +12,16 @@ import { Col, Row, Grid } from 'react-native-easy-grid';
 
 const { width: winWidth } = Dimensions.get('window');
 
+function renderCapturingButton(recording, capturing) {
+  console.log(recording);
+  if (recording) return styles.captureBtnInternal;
+  return capturing ? [styles.captureBtn, styles.captureBtnActive] : styles.captureBtn;
+}
+
 const { FlashMode: CameraFlashModes, Type: CameraTypes } = Camera.Constants;
 export default ({
   capturing = false,
+  recording = false,
   cameraType = CameraTypes.back,
   flashMode = CameraFlashModes.off,
   setFlashMode,
@@ -47,9 +54,7 @@ export default ({
           onLongPress={onLongCapture}
           onPress={onShortCapture}
         >
-          <View style={[styles.captureBtnInternal, capturing && styles.captureBtnActive]}>
-            {capturing && <View style={styles.captureBtnInternal} />}
-          </View>
+          <View style={renderCapturingButton(recording, capturing)} />
         </TouchableWithoutFeedback>
       </Col>
       <Col style={styles.alignCenter}>
@@ -77,15 +82,16 @@ const styles = StyleSheet.create({
     bottom: 0
   },
   captureBtn: {
-    width: 60,
-    height: 60,
+    width: 80,
+    height: 80,
     borderWidth: 2,
     borderRadius: 60,
     borderColor: '#FFFFFF'
   },
   captureBtnActive: {
-    width: 80,
-    height: 80
+    width: 75,
+    height: 75,
+    backgroundColor: '#FFFFFF'
   },
   captureBtnInternal: {
     width: 76,
