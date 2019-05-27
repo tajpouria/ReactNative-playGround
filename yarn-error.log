@@ -1,8 +1,8 @@
 Arguments: 
-  /usr/local/bin/node /usr/share/yarn/bin/yarn.js add react-native-easy-grid
+  /usr/local/bin/node /usr/share/yarn/bin/yarn.js add @expo/vector-icons
 
 PATH: 
-  /home/lenovo/bin:/home/lenovo/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin
+  /home/lenovo/.composer/vendor/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin:/home/lenovo/Android/Sdk/emulator:/home/lenovo/Android/Sdk/tools:/home/lenovo/Android/Sdk/tools/bin:/home/lenovo/Android/Sdk/platform-tools:/home/lenovo/.vimpkg/bin:/home/lenovo/.vimpkg/bin
 
 Yarn version: 
   1.16.0
